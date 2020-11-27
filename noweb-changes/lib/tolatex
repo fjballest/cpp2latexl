@@ -1,0 +1,51 @@
+#!/bin/sh
+#
+# Copyright 1991 by Norman Ramsey.  All rights reserved.
+# See file COPYRIGHT for more information.
+#
+# (C) 1995 GSyC Tue Dec 19 17:05:31 WET 1995 nemo@nautilus.
+# Changed to filter to LaTeX 2e with more user control
+#
+#
+# You must input the result (.tex) of the noweave from a file starting like..
+# This will format only your doc chunks, it's assumed that you have
+# formatted with another filter your code chunks.
+#
+# \documentclas{....}
+# \usepackage{noweb-latex}
+# \usepackage{noweb-code}
+#
+# Your doc sty has to define:
+# \begin{codechunk} .... \end{codechunk}
+# \includechunk{...}
+# \citecode{...}
+# 
+delay=0 noindex=0
+for i do
+  case $i in
+    -delay)   delay=1   ;;
+    -noindex) noindex=1 ;;
+    *) echo "This can't happen -- $i passed to tolatex" 1>&2 ; exit 1 ;;
+  esac
+done
+
+awk '
+/^@begin docs 0$/ { next }
+/^@begin docs / { next }
+/^@begin code / { code = 1; printf("\\begin{codechunk}\n"); }
+/^@end docs /   { code = 0;}
+/^@end code /   { printf("\\end{codechunk}\n\n"); code = 0; }
+		
+
+/^@defn / { printf "{%s}", substr($0,7), substr($0,7) }
+/^@text $/ {next}
+/^@text / {  printf "%s", substr($0,7) }
+/^@quote$/    { printf("\\citecode{"); dangling_text = 1; quoting = 1 }
+/^@endquote$/ { printf("}"); dangling_text = 1; quoting = 0 }
+/^@nl$/       { printf "\n"; dangling_text = 0}
+
+/^@index defn / { ; }
+/^@index nl$/ { ; }
+/^@use / { printf "\\includechunk{%s}", substr($0,6)
+           dangling_text = 1
+         }' 

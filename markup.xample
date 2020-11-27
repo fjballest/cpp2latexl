@@ -1,0 +1,158 @@
+@file chunk.nw
+@begin docs 0
+@end docs 0
+@begin docs 1
+@text 
+@nl
+@text %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@nl
+@text %% chunk.nw --- Advice's chunk store noweb source
+@nl
+@text %% Author          : Francisco J. Ballesteros
+@nl
+@text %% Created On      : Mon Jun 24 21:36:31 1996
+@nl
+@text %% Last Modified By: Francisco J. Ballesteros
+@nl
+@text %% Last Modified On: Tue Jun 25 14:30:54 1996
+@nl
+@text %% Update Count    : 24
+@nl
+@text %% VC Id           : $Id$ 
+@nl
+@text %% Usage           : input this & run latex
+@nl
+@text %%                 : 
+@nl
+@text %% Status          : Unknown, Use with caution!
+@nl
+@text %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@nl
+@text 
+@nl
+@text \section{Stacked mapping}
+@nl
+@text 
+@nl
+@text The problem being solved is stacked mapping management. The problem
+@nl
+@text can be stated as it is done below.
+@nl
+@text 
+@nl
+@text \begin{itemize}
+@nl
+@text \item Start with a set of contiguous values (e.g., values of type
+@nl
+@text   integer or virtual addresses).
+@nl
+@text \item Then define one or more segments in such a set. Each segment is
+@nl
+@text   characterized by its first point and its last point.
+@nl
+@text \item Segments can be \emph{undefined}.
+@nl
+@text \item For each segment an identifier is given.
+@nl
+@text \item The problem to be solved is to locate a segment identifier given
+@nl
+@text   a point, taking into account that
+@nl
+@text   \begin{itemize}
+@nl
+@text   \item Initially, when no segment has been defined, each point in the
+@nl
+@text     set has an \emph{unknown} identifier.
+@nl
+@text   \item After a segment has been defined, each point inside it will
+@nl
+@text     have the identifier asigned to such segment. 
+@nl
+@text   \item If a point is inside more than one segment, it will have the
+@nl
+@text     identifier of the \emph{last} defined segment.
+@nl
+@text   \item If a segment is undefined the problem must be solved as if
+@nl
+@text     such segment never had been defined at all.
+@nl
+@text   \end{itemize}
+@nl
+@text \end{itemize}
+@nl
+@text 
+@nl
+@text Thus, we can imagine a \emph{stack} of segments like that of
+@nl
+@text figure~\ref{fig:stkmaps} (Identifiers are given above the segment in
+@nl
+@text uppercase.) The identifier of a given point is the identifier of the
+@nl
+@text top-most segment which contains it. 
+@nl
+@text 
+@nl
+@text The operations to be supported by the chunk store must be 
+@nl
+@text \begin{description}
+@nl
+@text \item[segment definition] Addition of a new segment 
+@nl
+@text \item[segment undefinition] Deletion of a segment
+@nl
+@text \item[point lookup] Find the (segment) identifier for a given point
+@nl
+@text \end{description}
+@nl
+@text 
+@nl
+@text \begin{figure}
+@nl
+@text   \center\epsfig{file=stkmaps.eps,width=10cm}
+@nl
+@text   \caption{Stacked mappings. Each segment is a ``mapped'' segment
+@nl
+@text     which could hide (part of) other segments. }
+@nl
+@text   \label{fig:stkmaps} 
+@nl
+@text \end{figure}
+@nl
+@text 
+@nl
+@text 
+@nl
+@text \section{The chunk store}
+@nl
+@text 
+@nl
+@text The chunk store will operate on a set of virtual addresses of type
+@nl
+@quote
+@text vaddr_t
+@endquote
+@text  
+@nl
+@text 
+@nl
+@text Give here the intuition and bla bla bla while you're looking at
+@nl
+@text figure~\ref{fig:surf}.
+@nl
+@text 
+@nl
+@text 
+@nl
+@text \begin{figure}
+@nl
+@text   \center\epsfig{file=surf.eps,width=10cm}
+@nl
+@text   \caption{The chunk store in action.}
+@nl
+@text   \label{fig:surf} 
+@nl
+@text \end{figure}
+@nl
+@text 
+@nl
+@end docs 1

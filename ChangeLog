@@ -1,0 +1,6 @@
+Wed May 29 19:50:19 1996  Francisco J. Ballesteros  <nemo@nautilus.gsyc.inf.uc3m.es>
+
+		* c++2latex.flex: BUG: code chunk names are formatted as if they
+		where code; they should be formatted like  documentation
+		chunks. [not fixed]
+

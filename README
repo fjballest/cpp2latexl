@@ -1,0 +1,38 @@
+
+ C++2LaTeX-l: Produce prettyprinted LaTeX files from  C++ or C sources
+              for use in literate programs formatted with noweb
+
+ Copyright (C) 1996 Francisco J. Ballesteros <nemo@nautilus> for the
+                    literate (-l) version
+
+NOTE: This literate version does not include code from the plain
+c++2latex distribution but I still consider this program a derivative
+from the original one, at least in spirit ;-) -- nemo@nautilus 
+The original c++2latex was copyright (C) 1990 Norbert Kiesel
+
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 1, or (at your option)
+ any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+ Francisco J. Ballesteros 
+ GSyC group, Dept. Informatica
+ Carlos III University of Madrid 
+ C/ Butarque 15, E-28911 Leganes (Madrid)
+ Spain
+ nemo@gsyc.inf.uc3m.es or http://www.gsyc.inf.uc3m.es/~nemo
+
+ Please contact me for comments, bugs or suggestions about this code.
+
+
+

@@ -1,0 +1,46 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -*- Mode: Latex -*- %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% noweb2e.sty --- macros for noweb with LaTeX 2e.
+%% Author          : Francisco J. Ballesteros
+%% Created On      : Fri Jun  3 22:50:16 1994
+%% Last Modified By: Francisco J. Ballesteros
+%% Last Modified On: Tue Jun 25 17:04:09 1996
+%% Update Count    : 13
+%% RCS Id          : $Id$
+%% Usage           : see below :)
+%% Required        : see below :)
+%% Status          : ($State$) Unknown, Use with caution!
+%% Prefix(es)      : 
+%% Requeriments    : needs \moreverb to be used before
+%% Purpose         : 
+%% ----------------______________________________________________
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% Ensure we do have the needed environments
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%% We need at least LaTeX2e
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{noweb2e}
+                [1995/07/03 v0.1b
+     my noweb package]
+
+
+% exit if loaded, like #ifndef _FOO #define _FOO #endif in headers ;)
+
+
+\usepackage{moreverb}
+
+%% ----------------------------------------------------------------------- 
+%%                    New Commands for typeset keywords
+%% ----------------------------------------------------------------------- 
+
+%% ----------------------------------------------------------------------- 
+%%                             entry points
+%% ----------------------------------------------------------------------- 
+
+\newcommand{\includechunk}[1]{\textsl{$\ll$ #1 $\gg$}}
+\newcommand{\citecode}[1]{\textsl{#1}}
+\newenvironment{codechunk}[1]{
+\verbatimcmd\small\textbf{\textsl{#1} code:}\\ }
+{\endverbatimcmd}

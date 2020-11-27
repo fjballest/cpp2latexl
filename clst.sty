@@ -1,0 +1,204 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -*- Mode: Latex -*- %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% adalisting.sty --- listings for Ada and C++ in LaTeX files
+%% Author          : Francisco J. Ballesteros
+%% Created On      : Fri Jun  3 22:50:16 1994
+%% Last Modified By: Francisco J. Ballesteros
+%% Last Modified On: Tue May 21 19:45:27 1996
+%% Update Count    : 18
+%% RCS Id          : $Id: clst.sty,v 1.1.1.1 1996/05/29 17:53:06 nemo Exp $
+%% Usage           : see below :)
+%% Required        : see below :)
+%% Status          : ($State: Exp $) seems to be working
+%% Prefix(es)      : 
+%% Requeriments    : needs \moreverb 
+%% Purpose         : 
+%%                 : typeset Ada and C++ w/ LaTeX
+%%                 : REMEMBER!!! if you modify it, just keep it simple!
+%% ----------------______________________________________________
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% C++2LaTeX-l: Produce prettyprinted LaTeX files from  C++ or C sources
+%              for use in literate programs formatted with noweb
+
+% Copyright (C) 1996 Francisco J. Ballesteros <nemo@nautilus> for the
+%                    literate (-l) version
+
+% NOTE: The literate version does not include code from the plain c++2latex
+% distribution but I still consider this program a derivative from the
+% original one, at least in spirit ;-) -- nemo@nautilus
+% The original c++2latex was copyright (C) 1990 Norbert Kiesel
+
+
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 1, or (at your option)
+% any later version.
+
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+% Francisco J. Ballesteros 
+% GSyC group, Computer Science
+% Carlos III University of Madrid 
+% C/ Butarque 15, E-28911 Leganes (Madrid)
+% Spain
+% nemo@gsyc.inf.uc3m.es or http://www.gsyc.inf.uc3m.es/~nemo
+
+% Please contact me for comments, bugs or suggestions about this code.
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%% Ensure we do have the needed environments
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+%% We need at least LaTeX2e
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{clst}
+                [1995/07/03 v0.1b
+     The C++ listing package]
+
+
+% exit if loaded, like #ifndef _FOO #define _FOO #endif in headers ;)
+\ifx \clststyloaded\relax \endinput\else\let\clststyloaded\relax\fi
+
+\usepackage{moreverb}
+
+%% ----------------------------------------------------------------------- 
+%%                    New Commands for typeset keywords
+%% ----------------------------------------------------------------------- 
+
+\newcommand{\CKeyword}[1]{\textrm{\textbf{#1}}}
+\newcommand{\CComment}[1]{\textsl{#1}}
+
+\newcommand{\CPPinclude}{\CKeyword{\#include}}
+\newcommand{\CPPdefine}{\CKeyword{\#define}}
+\newcommand{\CPPundef}{\CKeyword{\#undef}}
+\newcommand{\CPPpragma}{\CKeyword{\#pragma}}
+\newcommand{\CPPif}{\CKeyword{\#if}}
+\newcommand{\CPPifdef}{\CKeyword{\#ifdef}}
+\newcommand{\CPPifndef}{\CKeyword{\#ifndef}}
+\newcommand{\CPPelif}{\CKeyword{\#elif}}
+\newcommand{\CPPelse}{\CKeyword{\#else}}
+\newcommand{\CPPerror}{\CKeyword{\#error}}
+\newcommand{\CPPline}{\CKeyword{\#line}}
+\newcommand{\CPPex}{\CKeyword{\#ex}}
+\newcommand{\CPPendif}{\CKeyword{\#endif}}
+\newcommand{\Cauto}{\CKeyword{auto}}
+\newcommand{\Cdouble}{\CKeyword{double}}
+\newcommand{\Cint}{\CKeyword{int}}
+\newcommand{\Cstruct}{\CKeyword{struct}}
+\newcommand{\Cbreak}{\CKeyword{break}}
+\newcommand{\Celse}{\CKeyword{else}}
+\newcommand{\Clong}{\CKeyword{long}}
+\newcommand{\Cswitch}{\CKeyword{switch}}
+\newcommand{\Ccase}{\CKeyword{case}}
+\newcommand{\Cenum}{\CKeyword{enum}}
+\newcommand{\Cregister}{\CKeyword{register}}
+\newcommand{\Ctypedef}{\CKeyword{typedef}}
+\newcommand{\Cchar}{\CKeyword{char}}
+\newcommand{\Cextern}{\CKeyword{extern}}
+\newcommand{\Creturn}{\CKeyword{return}}
+\newcommand{\Cunion}{\CKeyword{union}}
+\newcommand{\Cconst}{\CKeyword{const}}
+\newcommand{\Cfloat}{\CKeyword{float}}
+\newcommand{\Cshort}{\CKeyword{short}}
+\newcommand{\Cunsigned}{\CKeyword{unsigned}}
+\newcommand{\Ccontinue}{\CKeyword{continue}}
+\newcommand{\Cfor}{\CKeyword{for}}
+\newcommand{\Csigned}{\CKeyword{signed}}
+\newcommand{\Cvoid}{\CKeyword{void}}
+\newcommand{\Cdefault}{\CKeyword{default}}
+\newcommand{\Cgoto}{\CKeyword{goto}}
+\newcommand{\Csizeof}{\CKeyword{sizeof}}
+\newcommand{\Cvolatile}{\CKeyword{volatile}}
+\newcommand{\Cdo}{\CKeyword{do}}
+\newcommand{\Cif}{\CKeyword{if}}
+\newcommand{\Cstatic}{\CKeyword{static}}
+\newcommand{\Cwhile}{\CKeyword{while}}
+\newcommand{\Cnew}{\CKeyword{new}}
+\newcommand{\Cdelete}{\CKeyword{delete}}
+\newcommand{\Cthis}{\CKeyword{this}}
+\newcommand{\Coperator}{\CKeyword{operator}}
+\newcommand{\Cclass}{\CKeyword{class}}
+\newcommand{\Cpublic}{\CKeyword{public}}
+\newcommand{\Cprotected}{\CKeyword{protected}}
+\newcommand{\Cprivate}{\CKeyword{private}}
+\newcommand{\Cvirtual}{\CKeyword{virtual}}
+\newcommand{\Cfriend}{\CKeyword{friend}}
+\newcommand{\Cinline}{\CKeyword{inline}}
+\newcommand{\Cdynamic}{\CKeyword{dynamic}}
+\newcommand{\Ctypeof}{\CKeyword{typeof}}
+\newcommand{\Call}{\CKeyword{all}}
+\newcommand{\Cexcept}{\CKeyword{except}}
+\newcommand{\Cexception}{\CKeyword{exception}}
+\newcommand{\Craise}{\CKeyword{raise}}
+\newcommand{\Craises}{\CKeyword{raises}}
+\newcommand{\Creraise}{\CKeyword{reraise}}
+\newcommand{\Ctry}{\CKeyword{try}}
+\newcommand{\Casm}{\CKeyword{asm}}
+\newcommand{\Ccatch}{\CKeyword{catch}}
+\newcommand{\Coverload}{\CKeyword{overload}}
+
+%% ----------------------------------------------------------------------- 
+%%                             entry points
+%% ----------------------------------------------------------------------- 
+
+% just put it pretty printed
+% 
+\newcommand{\listc}[1]{
+%\selectlanguage{english}
+\begin{verbatimcmd}
+\small
+\input{#1}
+\end{verbatimcmd}
+%\selectlanguage{spanish}
+}
+
+% same as \listc but with rules delimiting the listing
+%
+\newcommand{\rlistc}[1]{
+%\selectlanguage{english}
+\begin{verbatimcmd}
+\hrule
+\vspace{0.25cm}
+\small
+\input{#1}
+\vspace{0.25cm}
+\hrule
+\end{verbatimcmd}
+%\selectlanguage{spanish}
+}
+
+% just put it pretty printed
+% 
+\newcommand{\clst}[1]{
+%\selectlanguage{english}
+\begin{verbatimcmd}
+\small
+\input{#1}
+\end{verbatimcmd}
+}
+
+% same as \listada but with rules delimiting the listing
+%
+\newcommand{\crlst}[1]{
+%\selectlanguage{english}
+\begin{verbatimcmd}
+\hrule
+\vspace{0.25cm}
+\small
+\input{#1}
+\vspace{0.25cm}
+\hrule
+\end{verbatimcmd}
+}
+
+% environment for  listings, not just ada, but every kind of listings
+%
+%\newenvironment
